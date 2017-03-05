@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "296819566204",
+    "firebase_url": "https://chater-pater.firebaseio.com",
+    "project_id": "chater-pater",
+    "storage_bucket": "chater-pater.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:296819566204:android:f4c335df3b0adb55",
+        "android_client_info": {
+          "package_name": "com.example.ankur.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "296819566204-2roi067vej8tg9641k6ju2scsqaj0vc1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCDE4pxwOPkDKKL7b4UKmFD2FiuxD1a9Po"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
