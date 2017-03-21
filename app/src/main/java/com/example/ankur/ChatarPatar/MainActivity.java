@@ -1,4 +1,4 @@
-package com.example.ankur.myapplication;
+package com.example.ankur.ChatarPatar;
 
 import android.content.Intent;
 import android.graphics.Bitmap;

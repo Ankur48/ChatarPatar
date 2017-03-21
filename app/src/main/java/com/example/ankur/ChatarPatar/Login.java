@@ -1,4 +1,4 @@
-package com.example.ankur.myapplication;
+package com.example.ankur.ChatarPatar;
 
 
 import android.content.Intent;
@@ -172,7 +172,7 @@ public class Login extends AppCompatActivity {
 
     public void printKeyHash() {
         try {
-            PackageInfo info = getPackageManager().getPackageInfo("com.example.ankur.myapplication", PackageManager.GET_SIGNATURES);
+            PackageInfo info = getPackageManager().getPackageInfo("com.example.ankur.ChatarPatar", PackageManager.GET_SIGNATURES);
             for (Signature signature : info.signatures) {
                 MessageDigest md = MessageDigest.getInstance("SHA");
                 md.update(signature.toByteArray());
