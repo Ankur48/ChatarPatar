@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">ChatarPatar</string>
     <string name="facebook_application_id" translatable="false">618556725009595</string>
 
 </resources>
