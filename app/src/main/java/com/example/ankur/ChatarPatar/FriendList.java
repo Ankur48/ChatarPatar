@@ -6,7 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 
-import com.example.ankur.ChatarPatar.Model.UserName;
+import com.example.ankur.ChatarPatar.Model.UserModel;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -20,7 +20,7 @@ public class FriendList extends AppCompatActivity {
     private FirebaseDatabase database;
     private RecyclerView my_recycler_view;
     private LinearLayoutManager mLayoutManager;
-    private FirebaseRecyclerAdapter<UserName, FirebaseUser> mFirebaseAdapter;
+    private FirebaseRecyclerAdapter<UserModel, FirebaseUser> mFirebaseAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,10 +81,10 @@ public class FriendList extends AppCompatActivity {
 
     private void setUpFirebaseAdapter(Query query) {
 
-        mFirebaseAdapter = new FirebaseRecyclerAdapter<UserName, FirebaseUser>
-                (UserName.class, R.layout.row_user_list, FirebaseUser.class, query) {
+        mFirebaseAdapter = new FirebaseRecyclerAdapter<UserModel, FirebaseUser>
+                (UserModel.class, R.layout.row_user_list, FirebaseUser.class, query) {
             @Override
-            protected void populateViewHolder(FirebaseUser viewHolder, UserName model, int position) {
+            protected void populateViewHolder(FirebaseUser viewHolder, UserModel model, int position) {
                 // customeLoaderDialog.hide();
                 viewHolder.bindUser(model);
             }

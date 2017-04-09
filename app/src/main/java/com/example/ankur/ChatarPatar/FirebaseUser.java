@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.ankur.ChatarPatar.Model.UserName;
+import com.example.ankur.ChatarPatar.Model.UserModel;
 import com.example.ankur.ChatarPatar.custome_view.BadgeView;
 import com.squareup.picasso.Picasso;
 
@@ -22,7 +22,7 @@ public class FirebaseUser extends RecyclerView.ViewHolder implements View.OnClic
     private static final int MAX_HEIGHT = 200;
     View mView;
     Context mContext;
-    UserName userModel;
+    UserModel userModel;
 
     public FirebaseUser(View itemView) {
         super(itemView);
@@ -31,7 +31,7 @@ public class FirebaseUser extends RecyclerView.ViewHolder implements View.OnClic
         itemView.setOnClickListener(this);
     }
 
-    public void bindUser(UserName userModel) {
+    public void bindUser(UserModel userModel) {
         this.userModel = userModel;
         ImageView imgUser = (ImageView) mView.findViewById(R.id.imgUser);
         TextView tvName = (TextView) mView.findViewById(R.id.tvName);

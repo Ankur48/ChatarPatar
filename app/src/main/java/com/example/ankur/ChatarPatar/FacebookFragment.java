@@ -19,6 +19,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.ankur.ChatarPatar.Model.UserModel;
 import com.example.ankur.ChatarPatar.chat.UserList;
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
@@ -336,6 +337,9 @@ public class FacebookFragment extends android.support.v4.app.Fragment {
                 InputStream in = new java.net.URL(url).openStream();
                 mIcon11 = BitmapFactory.decodeStream(in);
                 //save image to internal storage
+                //  Log.d(url,"name");
+                System.out.print(url);
+                Toast.makeText(getActivity(), url, Toast.LENGTH_LONG).show();
                 new ImageSaver(getActivity()).
                         setFileName("myImage.png").
                         setDirectoryName("images").

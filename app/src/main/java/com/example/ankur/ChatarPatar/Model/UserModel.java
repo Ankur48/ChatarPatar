@@ -1,10 +1,12 @@
 package com.example.ankur.ChatarPatar.Model;
 
+import com.google.firebase.database.DataSnapshot;
+
 /**
  * Created by ankur on 31-03-2017.
  */
 
-public class UserName {
+public class UserModel {
     private String userId;
     private String status;
     private String firstName;
@@ -15,10 +17,10 @@ public class UserName {
     private String email;
 
 
-    public UserName() {
+    public UserModel(Class<? extends DataSnapshot> aClass) {
     }
 
-    public UserName(String userId, String status, String firstName, String lastName, String platform, String profileImageUri, long badge) {
+    public UserModel(String userId, String status, String firstName, String lastName, String platform, String profileImageUri, long badge) {
         this.userId = userId;
         this.status = status;
         this.firstName = firstName;
