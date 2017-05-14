@@ -14,6 +14,9 @@
     <dimen name="radio_divider_margin">35dp</dimen>
     <dimen name="corner_radius">3dp</dimen>
 
+    <dimen name="card_corner_radius">2dp</dimen>
+    <dimen name="card_elevation">2dp</dimen>
+    <dimen name="touch_raise">6dp</dimen>
 
     <dimen name="textsize_verysmall">7sp</dimen>
     <dimen name="textsize_small">11sp</dimen>

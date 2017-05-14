@@ -6,6 +6,9 @@
         <attr name="civ_border_overlay" format="boolean" />
         <attr name="civ_fill_color" format="color" />
     </declare-styleable>
+    <declare-styleable name="DynamicHeightImageView">
+        <attr name="heightRatio" format="float" />
+    </declare-styleable>
     <declare-styleable name="wheelview">
         <attr name="gravity">
             <enum name="center" value="17" />

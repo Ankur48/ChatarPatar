@@ -30,6 +30,10 @@ public class UserModel {
         this.badge = badge;
     }
 
+    public UserModel() {
+
+    }
+
     public String getUserId() {
         return userId;
     }

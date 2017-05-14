@@ -32,6 +32,8 @@ dependencies {
     //noinspection GradleCompatible
     //  compile 'com.firebaseui:firebase-ui:0.4.4'
     //noinspection GradleCompatible
+    compile 'io.reactivex:rxjava:1.1.8'
+    compile 'io.reactivex:rxandroid:1.2.1'
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.facebook.android:facebook-android-sdk:4.10.1'
     compile 'com.google.firebase:firebase-auth:10.2.0'
