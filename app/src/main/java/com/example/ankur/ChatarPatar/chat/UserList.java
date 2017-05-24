@@ -1,17 +1,25 @@
 package com.example.ankur.ChatarPatar.chat;
 
-
-import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.ankur.ChatarPatar.Constant;
 import com.example.ankur.ChatarPatar.Model.UserModel;
 import com.example.ankur.ChatarPatar.R;
-import com.example.ankur.ChatarPatar.cardstack.ui.TinderCardView;
-import com.example.ankur.ChatarPatar.cardstack.ui.TinderStackLayout;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -19,114 +27,149 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.List;
-
-import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
 
 public class UserList extends AppCompatActivity {
-    final public static List<String> profileUrl = new ArrayList<String>();
-    final public static List<String> userName = new ArrayList<String>();
-
-    private static final String TAG = "MainActivity";
-    static UserModel details;
-    int index = 0;
-    TinderCardView tc;
     private FirebaseDatabase database;
-    private TinderStackLayout tinderStackLayout;
-    private Context context = this;
-    private ArrayList<String> data;
+    private String chat_id;
+    ChatConModel chatConModel;
     private FirebaseAuth mAuth;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user);
-        profileUrl.add("https://scontent.xx.fbcdn.net/v/t1.0-1/p100x100/12717169_1663646807190961_7655999365176970067_n.jpg?oh=75dfe919c3cb6d289a0fb9338329da2e&oe=5927E564");
+        setContentView(R.layout.activity_user1);
+
+        Button sendBtn= (Button) findViewById(R.id.sendBtn);
+        final EditText messageTxt= (EditText) findViewById(R.id.messageTxt);
+        ListView userList= (ListView) findViewById(R.id.userList);
+        mAuth=FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
-        Toast.makeText(UserList.this, "database", Toast.LENGTH_LONG).show();
-        final DatabaseReference ref = database.getReference().child("users");
-        imgGet(ref);
-        tinderStackLayout = (TinderStackLayout) findViewById(R.id.tsl);
+        final DatabaseReference ref = database.getReference().child("chat");
+        final DatabaseReference firebase = database.getReference().child("users");
+
+        Constant.USER_ID = mAuth.getCurrentUser().getUid();
+        //  String key=firebase.getKey();
+        final ArrayList<UserModel> users=new ArrayList<>();
 
 
-        TinderCardView tc;
-
-
-    }
-
-    public void imgGet(DatabaseReference ref) {
-        Toast.makeText(UserList.this, "imgGet", Toast.LENGTH_LONG).show();
-        ref.addValueEventListener(new ValueEventListener() {
-
+        final ArrayAdapter<UserModel> userAdapter=new ArrayAdapter<UserModel>(
+                this,android.R.layout.two_line_list_item,users
+        ){
+            @NonNull
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot dataSnapshotChild : dataSnapshot.getChildren()) {
-                    //  Toast.makeText(UserList.this,dir,Toast.LENGTH_LONG).show();
-                    Log.d("Output", dataSnapshotChild.toString());
-
-                    Log.d("Output1", dataSnapshotChild.child("profileImageUri").getValue().toString());
-                    String dir = dataSnapshotChild.child("profileImageUri").getValue().toString();
-                    profileUrl.add(dir);
-                    String username = dataSnapshotChild.child("firstName").getValue().toString();
-                    userName.add(username);
-                    Log.d("Output2", String.valueOf(userName));
-
-                    Log.d("Output3", profileUrl.toString());
-
-
+            public View getView(int position, View view, ViewGroup parent) {
+                if(view ==null){view=getLayoutInflater().inflate(android.R.layout.two_line_list_item,parent,false);
                 }
-                //   ImageView imageView = (ImageView) findViewById(R.id.offer_image);
-                Log.d("helo", String.valueOf(profileUrl));
-                Toast.makeText(UserList.this, "ksksk", Toast.LENGTH_LONG).show();
-                Log.d("Datasize", String.valueOf(profileUrl.size()));
-                // Log.d("Dize", String.valueOf(details.getProfileImageUri()));
+                UserModel user=users.get(position);
+                ((TextView)view.findViewById(android.R.id.text1)).setText(user.getFirstName());
 
-                for (int i = index; index < i + (userName.size()); index++) {
-                    tc = new TinderCardView(UserList.this);
-                    tc.bind(getUser(index));
-                    tinderStackLayout.addCard(tc);
-                }
-                tinderStackLayout.getPublishSubject()
-                        .observeOn(AndroidSchedulers.mainThread()) // UI Thread
-                        .subscribe(new Subscriber<Integer>() {
-                            @Override
-                            public void onCompleted() {
+                ((TextView)view.findViewById(android.R.id.text2)).setText(user.getStatus());
+                return view;
+            }
+        };
 
-                            }
+        userList.setAdapter(userAdapter);
 
-                            @Override
-                            public void onError(Throwable e) {
-
-                            }
-
-                            @Override
-                            public void onNext(Integer integer) {
-                                if (integer == 1) {
-                                    TinderCardView tc;
-                                    for (int i = index; index < i + (userName.size()); index++) {
-                                        tc = new TinderCardView(UserList.this);
-                                        tc.bind(getUser(index));
-                                        tinderStackLayout.addCard(tc);
-                                    }
-                                }
-                            }
-                        });
+        firebase.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                UserModel userModel = dataSnapshot.getValue(UserModel.class);
+                //dataSnapshot.child("YSXSfLPWo0NAiocsDmLNhc4LzTV2");
+                //  ChatMessage chat=new ChatMessage("Abhi","hello dummy");
+                // UserModel userModel = new UserModel("Abhi","hello dummy");
+                users.add(userModel);
+                userAdapter.notifyDataSetChanged();
             }
 
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
             }
         });
+        {}
+
+        // Firebase.setAndroidContext(this);
+        //   final Firebase ref=new Firebase("https://chattingapp-3daae.firebaseio.com/");
+        // ref.child("users");
+
+
+
+        //  Query recent=ref.limitToLast(5);
+     /* FirebaseListAdapter<ChatMessage> adapter=new FirebaseListAdapter<ChatMessage>(this,ChatMessage.class,android.R.layout.two_line_list_item,recent) {
+            @Override
+            protected void populateView(View view, ChatMessage chat, int i) {
+                ((TextView)view.findViewById(android.R.id.text1)).setText(chat.getName());
+                ((TextView)view.findViewById(android.R.id.text2)).setText(chat.getMessage());*/
+             /*   RelativeLayout.LayoutParams lp= (RelativeLayout.LayoutParams) view.getLayoutParams();
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    view.setBackground(getDrawable(R.drawable.ch));
+                }
+                else
+                {view.setBackground(getDrawable(R.drawable.ch));}*/
+         /*   }
+        };*/
+        // messageLst.setAdapter(adapter);
+
+
+        userList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                UserModel u=users.get(i);
+            /*  String chat_id=  */checkStatus(u.getUserId());
+                Toast.makeText(UserList.this,u.getUserId(),Toast.LENGTH_SHORT).show();
+                Intent intent=new Intent(UserList.this,ChatActivity.class);
+                intent.putExtra("reciverUserName",u.getFirstName());
+                intent.putExtra("reciverUid", u.getUserId());
+                intent.putExtra("reciverProfilePic", u.getProfileImageUri());
+                intent.putExtra("chat_id", chat_id);
+                Log.d("user chat id:",""+chat_id);
+                UserList.this.startActivity(intent);
+
+            }
+        });
+
     }
 
-    private UserModel getUser(int index) {
-        UserModel user = new UserModel();
-        user.setProfileImageUri(profileUrl.get(index));
-        user.setFirstName(userName.get(index));
-        return user;
+    private void checkStatus(String reciverUid) {
+        Log.d("user c status rec id:",reciverUid);
+
+        DatabaseReference senderRefrence = database.getReference().child("conversation_list").child(Constant.USER_ID).child(reciverUid);
+        // senderRefrence.child("yo").setValue("ha");
+        senderRefrence.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    dataSnapshot.getValue();
+                    ChatConModel chatConModel = dataSnapshot.getValue(ChatConModel.class);
+                    chat_id = chatConModel.getChat_id();
+                    Log.d("data check hear -> ", "" + dataSnapshot);
+                    Log.d("user  status chat id:",chat_id);
+                    // setUpFirebaseAdapter();
+                } else{
+                    Log.d("user else","no");
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
     }
 
 }

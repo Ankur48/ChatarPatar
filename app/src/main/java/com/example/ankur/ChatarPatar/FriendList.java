@@ -14,7 +14,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 
 public class FriendList extends AppCompatActivity {
-    private static final String TAG = "UserList";
+    private static final String TAG = "UserCardView";
     public static int from = 0;
     private FirebaseAuth mAuth;
     private FirebaseDatabase database;

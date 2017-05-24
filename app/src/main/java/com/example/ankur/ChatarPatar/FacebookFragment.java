@@ -20,6 +20,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.ankur.ChatarPatar.Model.UserModel;
+import com.example.ankur.ChatarPatar.chat.ConListActivity;
+import com.example.ankur.ChatarPatar.chat.UserCardView;
 import com.example.ankur.ChatarPatar.chat.UserList;
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
@@ -54,6 +56,9 @@ import java.util.Map;
 
 public class FacebookFragment extends android.support.v4.app.Fragment {
     Button demoActivity;
+    Button demoActivity2;
+    Button demoActivity3;
+
     private LoginButton loginButton;
     private CallbackManager callbackManager;
     private ProgressBar pb;
@@ -121,6 +126,9 @@ public class FacebookFragment extends android.support.v4.app.Fragment {
         pb = (ProgressBar) view.findViewById(R.id.progressBar1);
         loginButton.setReadPermissions("email");
         demoActivity = (Button) view.findViewById(R.id.demoActivity);
+        demoActivity2 = (Button) view.findViewById(R.id.demoActivity2);
+        demoActivity3 = (Button) view.findViewById(R.id.demoActivity3);
+
         // If using in a fragment
         loginButton.setFragment(this);
         pb.setVisibility(View.INVISIBLE);
@@ -129,7 +137,21 @@ public class FacebookFragment extends android.support.v4.app.Fragment {
         demoActivity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent i = new Intent(getActivity(), ConListActivity.class);
+                startActivity(i);
+            }
+        });
+        demoActivity2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 Intent i = new Intent(getActivity(), UserList.class);
+                startActivity(i);
+            }
+        });
+        demoActivity3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getActivity(), UserCardView.class);
                 startActivity(i);
             }
         });

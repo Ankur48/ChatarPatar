@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">ChatarPatar</string>
     <string name="facebook_application_id" translatable="false">618556725009595</string>
-
+    <string name="item_title">Palais Garnier</string>
+    <string name="item_desc">The Palais Garnier which locates in Paris was built from 1861 for
+        the Paris Opera.
+    </string>
 </resources>

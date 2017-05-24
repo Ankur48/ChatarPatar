@@ -40,4 +40,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Demo Activity" />
+
+    <Button
+        android:id="@+id/demoActivity2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Demo Activity2" />
+
+    <Button
+        android:id="@+id/demoActivity3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Demo Activity3" />
+
 </LinearLayout>
