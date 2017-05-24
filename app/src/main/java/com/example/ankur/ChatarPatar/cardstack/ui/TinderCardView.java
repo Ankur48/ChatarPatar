@@ -2,6 +2,7 @@ package com.example.ankur.ChatarPatar.cardstack.ui;
 
 import android.animation.Animator;
 import android.content.Context;
+import android.content.Intent;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -18,6 +19,7 @@ import com.example.ankur.ChatarPatar.R;
 import com.example.ankur.ChatarPatar.cardstack.bus.RxBus;
 import com.example.ankur.ChatarPatar.cardstack.bus.events.TopCardMovedEvent;
 import com.example.ankur.ChatarPatar.cardstack.utilities.DisplayUtility;
+import com.example.ankur.ChatarPatar.chat.UserProfile;
 import com.squareup.picasso.Picasso;
 
 /**
@@ -31,7 +33,7 @@ public class TinderCardView extends FrameLayout implements View.OnTouchListener 
     private static final float BADGE_ROTATION_DEGREES = 15.0f;
     private static final int DURATION = 300;
     // endregion
-
+    Context mc;
     // region Views
     private ImageView imageView;
     private TextView displayNameTextView;
@@ -56,6 +58,7 @@ public class TinderCardView extends FrameLayout implements View.OnTouchListener 
     // region Constructors
     public TinderCardView(Context context) {
         super(context);
+        this.mc = context;
         init(context, null);
     }
 
@@ -238,6 +241,14 @@ public class TinderCardView extends FrameLayout implements View.OnTouchListener 
             Picasso.with(iv.getContext())
                     .load(avatarUrl)
                     .into(iv);
+            iv.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    Intent i = new Intent(getContext(), UserProfile.class);
+                    mc.startActivity(i);
+                }
+            });
         }
     }
 

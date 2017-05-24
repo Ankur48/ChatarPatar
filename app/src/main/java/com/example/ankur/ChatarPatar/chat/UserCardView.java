@@ -86,6 +86,7 @@ public class UserCardView extends AppCompatActivity {
                     tc = new TinderCardView(UserCardView.this);
                     tc.bind(getUser(index));
                     tinderStackLayout.addCard(tc);
+
                 }
                 tinderStackLayout.getPublishSubject()
                         .observeOn(AndroidSchedulers.mainThread()) // UI Thread
@@ -107,6 +108,7 @@ public class UserCardView extends AppCompatActivity {
                                     for (int i = index; index < i + (userName.size()); index++) {
                                         tc = new TinderCardView(UserCardView.this);
                                         tc.bind(getUser(index));
+
                                         tinderStackLayout.addCard(tc);
                                     }
                                 }
